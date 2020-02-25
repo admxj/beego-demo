@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	orm.Debug = true
 	orm.RegisterDataBase("default", "mysql", "root:123456@tcp(127.0.0.1:3306)/nginx?charset=utf8")
 	beego.Run()
 }

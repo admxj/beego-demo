@@ -1,1 +1,0 @@
-/Users/admxj/go/src/immooc/views/info/edit.tpl

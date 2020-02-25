@@ -7,6 +7,7 @@ import (
 
 func init() {
 	//beego.Router("/", &controllers.MainController{})
-	beego.Include(&controllers.InfoController{})
+	//beego.Include(&controllers.InfoController{})
+	beego.Router("/", &controllers.GuessController{})
 
 }

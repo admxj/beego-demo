@@ -75,35 +75,36 @@
 <main>
     <!-- 处理答题结果 begin -->
     {{if .Next}}}
-<div class="img-wrapper">
-    {{if .Right}}
-        <img src="http://localhost:8080/static/img/c1.jpg" width="320px">
-        <div>
-            <button class="next" type="button">下一个</button>
-        </div>
+    <div class="img-wrapper">
+        {{if .Right}}
+            <img src="http://localhost:8080/static/img/c1.jpg" width="320px">
+            <div>
+                <button class="next" type="button">下一个</button>
+            </div>
+        {{else}}
+            <img src="http://localhost:8080/static/img/01.jpg" width="320px">
+            <div>
+                <button class="next" type="button">重新答题</button>
+            </div>
+        {{end}}
+    </div>
+    <!-- 处理答题结果 end -->
     {{else}}
-        <img src="http://localhost:8080/static/img/01.jpg" width="320px">
-        <div>
-            <button class="next" type="button">重新答题</button>
+        <div class="img-wrapper">
+            <img src="http://localhost:8080/{{.Img}}"/>
+            <form action="http://localhost:8080" method="POST">
+                <div class="options">
+                    {{range  $key, $value :=.Option}}
+                        <label for="">
+                            <input type="radio" name="key" value="{{$key}}"/>{{$value}}</label>
+                        </label>
+                    {{end}}
+                    <button type="submit">go</button>
+                    <input type="hidden" name="id" value="{{.ID}}">
+                </div>
+            </form>
         </div>
     {{end}}
-</div>
-<!-- 处理答题结果 end -->
-    {{else}}
-    <div class="img-wrapper">
-        <img src="http://localhost:8080/{{.Img}}"/>
-    </div>
-    <form action="http://localhost:8080" method="POST">
-        <div class="options">
-            {{range  $key, $value :=.Option}}
-                <label for="">
-                    <input type="radio" name="key" value="{{$key}}" />{{$value}}</label>
-                </label>
-            {{end}}
-            <button type="submit">go</button>
-            <input type="hidden" name="id" value="{{.ID}}">
-        </div>
-    </form>
     <!-- 展示答题信息 begin -->
 
     <!-- 展示答题信息 end -->
