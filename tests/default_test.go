@@ -1,7 +1,7 @@
 package test
 
 import (
-	_ "immooc/routers"
+	_ "imooc/routers"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"

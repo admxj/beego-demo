@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/go-errors/errors"
-	"immooc/models"
+	"imooc/models"
 )
 
 type GuessController struct {

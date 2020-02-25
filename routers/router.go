@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"immooc/controllers"
+	"imooc/controllers"
 )
 
 func init() {
