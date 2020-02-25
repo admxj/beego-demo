@@ -14,7 +14,7 @@ type GuessController struct {
 func (c *GuessController) Get() {
 	var guess models.Guess
 	err := func() error {
-		id, err := c.GetInt64("id")
+		id, err := c.GetInt("id")
 		beego.Info(id)
 		if err != nil {
 			id = 1
@@ -34,7 +34,35 @@ func (c *GuessController) Get() {
 		c.Ctx.WriteString("wrong response")
 	}
 	c.Data["ID"] = guess.Id
-	c.Data["Option"] = guess.Option
+	c.Data["Option"] = option
 	c.Data["Img"] = "/static" + guess.Img
+	c.TplName = "guess.tpl"
+}
+
+func (c *GuessController) Post() {
+
+	var guess models.Guess
+
+	err := func() error {
+		id, err := c.GetInt("id")
+		beego.Info(id)
+		if err != nil {
+			id = 1
+		}
+		guess, err = models.GetGuessById(id)
+		if err != nil {
+			return errors.New("guess not exists")
+		}
+		return nil
+	}()
+	if err != nil {
+		//c.Ctx.WriteString("wrong response")
+	}
+	answer := c.GetString("key")
+	right := models.Answer(guess.Id, answer)
+
+	c.Data["Right"] = right
+	c.Data["Next"] = guess.Id + 1
+	c.Data["ID"] = guess.Id
 	c.TplName = "guess.tpl"
 }

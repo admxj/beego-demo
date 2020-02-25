@@ -1,16 +1,17 @@
 package models
 
 import (
-	"fmt"
 	"github.com/astaxie/beego/orm"
+	"strings"
 )
 
 type Guess struct {
-	Id     int64
+	Id     int
 	Name   string `orm:"size(128)"`
 	Age    int
 	Option string
 	Img    string
+	Answer string
 }
 
 func init() {
@@ -19,17 +20,20 @@ func init() {
 
 // GetGuessById retrieves Guess by Id. Returns error if
 // Id doesn't exist
-func GetGuessById(id int64) (v Guess, err error) {
+func GetGuessById(id int) (v Guess, err error) {
 	o := orm.NewOrm()
 
 	v = Guess{Id: id}
 	err = o.Read(&v)
-	if err == orm.ErrNoRows {
-		fmt.Println("查询不到")
-	} else if err == orm.ErrMissPK {
-		fmt.Println("找不到主键")
-	} else {
-		fmt.Println(v.Id, v.Name)
-	}
+
 	return v, err
+}
+
+func Answer(sid int, answerkey string) bool {
+	subject, err := GetGuessById(sid)
+
+	if err != nil {
+		return false
+	}
+	return strings.Compare(strings.ToUpper(answerkey), subject.Answer) == 0
 }

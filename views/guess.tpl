@@ -74,30 +74,32 @@
   </header> -->
 <main>
     <!-- 处理答题结果 begin -->
-    {{if .Next}}}
-    <div class="img-wrapper">
-        {{if .Right}}
-            <img src="http://localhost:8080/static/img/c1.jpg" width="320px">
-            <div>
-                <button class="next" type="button">下一个</button>
-            </div>
-        {{else}}
-            <img src="http://localhost:8080/static/img/01.jpg" width="320px">
-            <div>
-                <button class="next" type="button">重新答题</button>
-            </div>
-        {{end}}
-    </div>
-    <!-- 处理答题结果 end -->
+    {{if .Next}}
+        <div class="img-wrapper">
+            {{if .Right}}
+                <img src="http://localhost:8080/static/img/c1.jpeg" width="320px">
+                <div>
+                    <button class="next" onclick="location.href='http://localhost:8080/?id={{.Next}}'" type="button">
+                        下一个
+                    </button>
+                </div>
+            {{else}}
+                <img src="http://localhost:8080/static/img/o1.jpeg" width="320px">
+                <div>
+                    <button class="next" onclick="location.href='http://localhost:8080/?id={{.ID}}'" type="button">
+                        重新答题
+                    </button>
+                </div>
+            {{end}}
+        </div>
+        <!-- 处理答题结果 end -->
     {{else}}
         <div class="img-wrapper">
-            <img src="http://localhost:8080/{{.Img}}"/>
+            <img src="http://localhost:8080/{{.Img}}" width="300px"/>
             <form action="http://localhost:8080" method="POST">
                 <div class="options">
                     {{range  $key, $value :=.Option}}
-                        <label for="">
-                            <input type="radio" name="key" value="{{$key}}"/>{{$value}}</label>
-                        </label>
+                        <label><input type="radio" name="key" value="{{$key}}"/>{{$value}}</label></label>
                     {{end}}
                     <button type="submit">go</button>
                     <input type="hidden" name="id" value="{{.ID}}">
