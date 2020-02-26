@@ -20,9 +20,9 @@ before_install:    # 注意需要先创建一个与你程序运行所需要的�
   - sudo service mysql restart
   - mysql -e 'create database nginx;'
   - mysql -e 'create database guess;'
+  - echo "USE mysql;\nUPDATE user SET authentication_string=PASSWORD('123456') WHERE user='root';;\nFLUSH PRIVILEGES;\n" | mysql -u root
 
 before_script:
-  - echo "USE mysql;\nUPDATE user SET authentication_string=PASSWORD('123456') WHERE user='root';;\nFLUSH PRIVILEGES;\n" | mysql -u root
   - go mod download
 script:      # 执行的脚步，但是go默认会执行下面的这些命令的，所以可以不用写
   - go env
