@@ -26,5 +26,7 @@ before_script:
 script:      # 执行的脚步，但是go默认会执行下面的这些命令的，所以可以不用写
   - go env
   - export GOPATH="/home/travis/gopath"
+  - echo $GOPATH
   - export PATH=$PATH:$GOPATH/bin
+  - echo $PATH
   - bee pack -be GOOS=linux
