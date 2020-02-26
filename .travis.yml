@@ -1,0 +1,28 @@
+language: go
+os: linux
+
+go:
+  - master
+
+addons:
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+      - mysql-client
+
+service:
+  - mysql
+
+before_install:    # 注意需要先创建一个与你程序运行所需要的数据库名
+  - sudo service mysql restart
+  - mysql -e 'create database nginx;'
+  - mysql -e 'create database guess;'
+
+before_script:
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('123456') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+
+script:      # 执行的脚步，但是go默认会执行下面的这些命令的，所以可以不用写
+  - go get -v
+  - go test ./...
