@@ -1,5 +1,4 @@
 name: Go
-os: linux
 on: [push]
 jobs:
 
