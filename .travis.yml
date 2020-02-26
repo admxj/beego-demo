@@ -16,6 +16,7 @@ service:
   - mysql
 
 before_install:    # 注意需要先创建一个与你程序运行所需要的数据库名
+  - cd ~ && go get -u github.com/beego/bee
   - sudo service mysql restart
   - mysql -e 'create database nginx;'
   - mysql -e 'create database guess;'
